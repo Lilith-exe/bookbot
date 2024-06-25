@@ -3,10 +3,12 @@ def main():
     book_string = book_text(path)
     num_words = word_count(book_string)
     char_count = character_count(book_string)
-    char_list = dict_list(char_count)
-    sorted_list = list_sort(char_list)
+    list = dict_list(char_count)
+    sort_key = sort_on(dict)
+    sorted_list = list_sort(list, sort_key)
     print(f"There are {num_words} words in this book!")
-    report(sorted_list)
+    print(sorted_list)
+#    print(list_sort(char_count, sort_key))
 
 def book_text(path):
     with open(path) as f:
@@ -26,12 +28,16 @@ def character_count(book_string):
             character_dict[character] = 1
     return character_dict
 
-def sort_on(item):
-    return (item)["num"]
+#def dict_list(char_count):
+#    list_chars = [{key: value} for key, value in char_count.items()]
+#    return list_chars
 
-def list_sort(char_list):
-    char_list.sort(reverse = True, key = sort_on)
-    return char_list
+def sort_on(dict):
+    return dict["num"]
+
+def list_sort(list, sort_key):
+    sorted_list = list.sort(reverse = True, key = sort_key)
+    return sorted_list
 
 def dict_list(char_count):
     char_list = []
@@ -41,10 +47,7 @@ def dict_list(char_count):
             char_list.append(temp_dict)
     return char_list
 
-def report(sorted_list):
-    print("--- Begin report ---")
-    for letter in sorted_list:
-        print(f"The '{letter['char']}' character was found {letter['num']} times")
-    print("--- End report ---")
     
+    
+
 main()
